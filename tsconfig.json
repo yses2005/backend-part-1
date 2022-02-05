@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "es2017",
+            "es2015.promise"
+        ],
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "baseUrl": "src",
+        "module": "commonjs",
+        "paths": {
+            "@models": ["models/"],
+            "@decorators": ["decorators/"]
+        },
+        "skipLibCheck": true
+    }
+}

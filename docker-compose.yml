@@ -1,0 +1,15 @@
+version: '3'
+services:
+    test-db:
+        image: mysql:5.7
+        container_name: test-db
+        ports:
+            - '3300:3306'
+        command: --init-file /mnt/init.sql
+        environment:
+            MYSQL_DATABASE: 'testdb'
+            MYSQL_USER: 'testdb'
+            MYSQL_PASSWORD: 'testdb'
+            MYSQL_ROOT_PASSWORD: 'root'
+        volumes:
+            - ./src/config/init.sql:/mnt/init.sql
