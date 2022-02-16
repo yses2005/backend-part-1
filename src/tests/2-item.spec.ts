@@ -1,5 +1,6 @@
 import { Item } from '@models';
 import { EntityManager, getManager } from 'typeorm';
+import { findAncestor } from 'typescript';
 
 describe('Item', () => {
     let manager: EntityManager;
@@ -22,6 +23,7 @@ describe('Item', () => {
 
         beforeAll(async () => {
             // TODO: Perform query here for getting all items
+            items = await Item.find();
         });
 
         it('should return all items', () => {
@@ -37,6 +39,9 @@ describe('Item', () => {
             // NAME: Choco Butternut
             // PRICE: 25
             // STOCKS: 10
+            item = new Item();
+            Object.assign(item, { name:'Choco Butternut', price:25,stocks:'10', })
+            await item.save();
         });
 
         it('should be able to create a new item', () => {
@@ -62,6 +67,9 @@ describe('Item', () => {
 
         beforeAll(async () => {
             // TODO: Reduce Choco Butternut's stocks to have only 5
+            item = await Item.findOne({ name:'Choco Butternut'});
+            item.stocks = 5;
+            await item.save();
         });
 
         it('should update the data', () => {
@@ -86,6 +94,8 @@ describe('Item', () => {
 
         beforeAll(async () => {
             // TODO: Soft-delete item with name `Item 1`
+            item = await Item.findOne({ name:'Item 1'});
+            await item.softRemove();
         });
 
         it('should have `deleted` field toggled', () => {

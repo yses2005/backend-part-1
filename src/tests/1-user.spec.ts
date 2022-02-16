@@ -21,6 +21,7 @@ describe('User', () => {
 
         beforeAll(async () => {
             // TODO: Perform query here for getting all users
+            users = await User.find(); 
         });
 
         it('should return all users', () => {
@@ -33,6 +34,9 @@ describe('User', () => {
 
         beforeAll(async () => {
             // TODO: Create a new user with username `sampleuser`
+            user = new User();
+            Object.assign(user, {username: 'sampleuser'});
+            await user.save();
         });
 
         it('should be able to create a new user', () => {
@@ -56,6 +60,9 @@ describe('User', () => {
 
         beforeAll(async () => {
             // TODO: Update user1's username to be `yses2005`
+            user = await User.findOne({ username: 'user1' });
+            user.username = 'yses2005';
+            await user.save();
         });
 
         it('should update the data', () => {
@@ -80,6 +87,8 @@ describe('User', () => {
 
         beforeAll(async () => {
             // TODO: Soft-delete user with username `user2`
+            user = await User.findOne({ username: 'user2'});
+            await user.softRemove();
         });
 
         it('should have `deleted` field toggled', () => {
