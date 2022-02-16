@@ -94,7 +94,7 @@ describe("Item", () => {
 
     beforeAll(async () => {
       // TODO: Soft-delete item with name `Item 1`
-      item = await Item.findOne({ name: "Item1" });
+      item = await Item.findOne({ name: "Item 1" });
       await item.softRemove();
     });
 
