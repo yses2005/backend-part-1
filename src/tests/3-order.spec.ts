@@ -1,4 +1,5 @@
 import { Order, User } from '@models';
+import { length } from 'class-validator';
 import { EntityManager, getManager } from 'typeorm';
 
 describe('Order', () => {
@@ -30,6 +31,7 @@ describe('Order', () => {
 
         beforeAll(async () => {
             // TODO: Query all orders from user id 1
+            orders = await Order.find({ customerId:1 });
         });
 
         it('should return all orders', () => {
@@ -47,6 +49,9 @@ describe('Order', () => {
 
         beforeAll(async () => {
             // TODO: Create a new order for `user2`
+            order = new Order();
+            Object.assign(order, { customerId:2 });
+            await order.save();
         });
 
         it('should have foreign key of customer', () => {
@@ -70,6 +75,9 @@ describe('Order', () => {
 
         beforeAll(async () => {
             // TODO: Delete user1's first order (HINT: You can check `createdAt` field)
+            order = await Order.findOne({ customerId:1 });
+            await order.softRemove();
+            
         });
 
         it('should delete the first order', () => {
@@ -105,6 +113,7 @@ describe('Order', () => {
 
         beforeAll(async () => {
             // TODO: Get the total number of orders of user3
+            orderCount = ( await Order.find({ customerId:3 })).length;
         });
 
         it('should count the non-deleted orders', () => {

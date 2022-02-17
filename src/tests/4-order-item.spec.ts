@@ -38,6 +38,10 @@ describe('OrderItem', () => {
 
         beforeAll(async () => {
             // TODO: Order `Item 3` for `user2`
+            const item = await Item.findOne({ name:'Item 3' });
+            order = new Order();
+            Object.assign(order, { customerId:2, items:[ item ] });
+            await order.save();
         });
 
         it('should have an order created', () => {
